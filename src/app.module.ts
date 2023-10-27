@@ -5,20 +5,12 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CharactersModule } from './characters/characters.module';
 import { PlanetsModule } from './planets/planets.module';
+import { DataSourceConfig } from './config/data.source';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.MYSQL_HOST,
-      port: process.env.MYSQL_PORT,
-      username: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    TypeOrmModule.forRoot(DataSourceConfig),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
