@@ -14,8 +14,8 @@ export class CharactersService {
     return 'This action adds a new character';
   }
 
-  findAll() {
-    return `This action returns all characters`;
+  async findAll() {
+    return await this.characterRepository.find();
   }
 
   findOne(id: number) {
