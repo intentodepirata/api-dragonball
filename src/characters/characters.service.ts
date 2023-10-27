@@ -10,16 +10,22 @@ export class CharactersService {
     @InjectRepository(Character)
     private characterRepository: Repository<Character>,
   ) {}
-  create(createCharacterDto: CreateCharacterDTO) {
-    return 'This action adds a new character';
+
+  async create(createCharacterDto: CreateCharacterDTO) {
+    return await this.characterRepository.save(createCharacterDto);
   }
 
   async findAll() {
-    return await this.characterRepository.find();
+    return await this.characterRepository.find({
+      relations: ['originPlanet', 'transformations'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} character`;
+  async findOne(id: number) {
+    return await this.characterRepository.findOne({
+      where: { id },
+      relations: ['originPlanet', 'transformations'],
+    });
   }
 
   update(id: number, updateCharacterDto: UpdateCharacterDTO) {
