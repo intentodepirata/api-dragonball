@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
@@ -20,8 +21,13 @@ export class CharactersController {
   }
 
   @Get()
-  findAll() {
-    return this.charactersService.findAll();
+  findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+    limit = limit > 100 ? 100 : limit;
+    return this.charactersService.paginate({
+      limit: Number(limit),
+      page: Number(page),
+      route: `${process.env.API_URL}/characters`,
+    });
   }
 
   @Get(':id')

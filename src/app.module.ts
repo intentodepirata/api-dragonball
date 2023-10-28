@@ -5,6 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CharactersModule } from './characters/characters.module';
 import { PlanetsModule } from './planets/planets.module';
+import { TransformationModule } from './transformation/transformation.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PlanetsModule } from './planets/planets.module';
     }),
     CharactersModule,
     PlanetsModule,
+    TransformationModule,
   ],
   controllers: [],
   providers: [],

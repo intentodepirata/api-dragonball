@@ -5,8 +5,9 @@ import {
   OneToOne,
   ManyToOne,
   OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
-import { Transformation } from './transformation.entity';
+import { Transformation } from '../../transformation/entities/transformation.entity';
 import { Planet } from 'src/planets/entities/planet.entity';
 import { ICharacter } from 'src/interfaces/character.interface';
 import { Race } from 'src/constants/race';
@@ -18,10 +19,10 @@ export class Character implements ICharacter {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @Column()
+  @Column({ type: 'bigint' })
   maxKi: number;
 
   @Column({ type: 'enum', enum: Race })
@@ -31,7 +32,7 @@ export class Character implements ICharacter {
   gender: Gender;
 
   @Column()
-  age: number;
+  age: string;
 
   @Column('text')
   description: string;
@@ -47,4 +48,7 @@ export class Character implements ICharacter {
 
   @Column({ type: 'enum', enum: Affiliation })
   affiliation: Affiliation;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

@@ -6,4 +6,5 @@ export interface ITransformation {
   image: string;
   ki: number;
   character: Character;
+  deletedAt: Date;
 }

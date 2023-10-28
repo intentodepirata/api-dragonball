@@ -3,6 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
 import { Character } from './entities/character.entity';
 import { Repository } from 'typeorm';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class CharactersService {
@@ -10,6 +15,10 @@ export class CharactersService {
     @InjectRepository(Character)
     private characterRepository: Repository<Character>,
   ) {}
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Character>> {
+    return paginate<Character>(this.characterRepository, options);
+  }
 
   async create(createCharacterDto: CreateCharacterDTO) {
     return await this.characterRepository.save(createCharacterDto);
@@ -28,11 +37,11 @@ export class CharactersService {
     });
   }
 
-  update(id: number, updateCharacterDto: UpdateCharacterDTO) {
-    return `This action updates a #${id} character`;
+  async update(id: number, updateCharacterDto: UpdateCharacterDTO) {
+    return await this.characterRepository.update(id, updateCharacterDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} character`;
+  async remove(id: number) {
+    return await this.characterRepository.softDelete(id);
   }
 }

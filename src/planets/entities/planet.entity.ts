@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
 import { Character } from '../../characters/entities/character.entity';
 import { IPlanet } from 'src/interfaces/planets.interface';
 
@@ -7,7 +13,7 @@ export class Planet implements IPlanet {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column()
@@ -21,4 +27,7 @@ export class Planet implements IPlanet {
 
   @OneToMany(() => Character, (character) => character.originPlanet)
   characters: Character[];
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

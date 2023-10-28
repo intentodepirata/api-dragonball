@@ -14,7 +14,7 @@ export class CreateCharacterDTO {
   gender: Gender;
 
   @IsInt()
-  age: number;
+  age: string;
 
   @IsInt()
   maxKi: number;
@@ -44,7 +44,7 @@ export class UpdateCharacterDTO {
 
   @IsOptional()
   @IsInt()
-  age: number;
+  age: string;
 
   @IsOptional()
   @IsInt()

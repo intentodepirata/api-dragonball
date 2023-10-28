@@ -10,23 +10,23 @@ export class PlanetsService {
     @InjectRepository(Planet)
     private planetRepository: Repository<Planet>,
   ) {}
-  create(createPlanetDto: CreatePlanetDTO) {
-    return 'This action adds a new planet';
+  async create(createPlanetDto: CreatePlanetDTO) {
+    return await this.planetRepository.save(createPlanetDto);
   }
 
-  findAll() {
-    return `This action returns all planets`;
+  async findAll() {
+    return await this.planetRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} planet`;
+  async findOne(id: number) {
+    return await this.planetRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updatePlanetDto: UpdatePlanetDTO) {
-    return `This action updates a #${id} planet`;
+  async update(id: number, updatePlanetDto: UpdatePlanetDTO) {
+    return await this.planetRepository.update(id, updatePlanetDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} planet`;
+  async remove(id: number) {
+    return await this.planetRepository.softDelete(id);
   }
 }

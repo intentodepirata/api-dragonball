@@ -5,4 +5,5 @@ export interface IPlanet {
   name: string;
   image: string;
   characters: Character[];
+  deletedAt: Date;
 }

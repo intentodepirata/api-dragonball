@@ -10,7 +10,7 @@ export class TransformationDTO {
   @IsInt()
   ki: number;
 }
-export class TransformationUpdateDTO {
+export class UpdateTransformationDto {
   @IsOptional()
   @IsString()
   name: string;

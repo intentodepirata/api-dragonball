@@ -1,4 +1,4 @@
-import { Transformation } from 'src/characters/entities/transformation.entity';
+import { Transformation } from 'src/transformation/entities/transformation.entity';
 import { Affiliation } from 'src/constants/affiliation';
 import { Gender } from 'src/constants/gender';
 import { Race } from 'src/constants/race';
@@ -10,10 +10,11 @@ export interface ICharacter {
   race: Race;
   maxKi: number;
   gender: Gender;
-  age: number;
+  age: string;
   description: string;
   image: string;
   originPlanet: Planet;
   transformations: Transformation[];
   affiliation: Affiliation;
+  deletedAt: Date;
 }
