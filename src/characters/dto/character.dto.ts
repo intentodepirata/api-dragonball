@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { IsOptional, IsString, IsInt, IsEnum } from 'class-validator';
 import { Affiliation } from 'src/constants/affiliation';
 import { Gender } from 'src/constants/gender';
@@ -13,7 +14,7 @@ export class CreateCharacterDTO {
   @IsEnum(Gender)
   gender: Gender;
 
-  @IsInt()
+  @IsString()
   age: string;
 
   @IsInt()
@@ -29,36 +30,5 @@ export class CreateCharacterDTO {
   affiliation: Affiliation;
 }
 
-export class UpdateCharacterDTO {
-  @IsOptional()
-  @IsString()
-  name: string;
-
-  @IsOptional()
-  @IsEnum(Race)
-  race: Race;
-
-  @IsOptional()
-  @IsEnum(Gender)
-  gender: Gender;
-
-  @IsOptional()
-  @IsInt()
-  age: string;
-
-  @IsOptional()
-  @IsInt()
-  maxKi: number;
-
-  @IsOptional()
-  @IsString()
-  description: string;
-
-  @IsOptional()
-  @IsString()
-  image: string;
-
-  @IsOptional()
-  @IsEnum(Affiliation)
-  affiliation: Affiliation;
-}
+//Agregar todos los campos opcionales
+export class UpdateCharacterDTO extends PartialType(CreateCharacterDTO) {}

@@ -1,5 +1,5 @@
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
-
+import { PartialType } from '@nestjs/mapped-types';
 export class CreatePlanetDTO {
   @IsString()
   name: string;
@@ -14,20 +14,5 @@ export class CreatePlanetDTO {
   description: string;
 }
 
-export class UpdatePlanetDTO {
-  @IsOptional()
-  @IsString()
-  name: string;
-
-  @IsOptional()
-  @IsString()
-  image: string;
-
-  @IsOptional()
-  @IsBoolean()
-  isDestroyed: boolean;
-
-  @IsOptional()
-  @IsString()
-  description: string;
-}
+//Agregar todos los campos opcionales
+export class UpdatePlanetDTO extends PartialType(CreatePlanetDTO) {}

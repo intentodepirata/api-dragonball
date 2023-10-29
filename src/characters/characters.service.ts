@@ -1,3 +1,4 @@
+import { Transformation } from './../transformation/entities/transformation.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';

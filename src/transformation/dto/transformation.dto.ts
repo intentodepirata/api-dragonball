@@ -1,5 +1,5 @@
 import { IsInt, IsOptional, IsString } from 'class-validator';
-
+import { PartialType } from '@nestjs/mapped-types';
 export class TransformationDTO {
   @IsString()
   name: string;
@@ -10,16 +10,4 @@ export class TransformationDTO {
   @IsInt()
   ki: number;
 }
-export class UpdateTransformationDto {
-  @IsOptional()
-  @IsString()
-  name: string;
-
-  @IsOptional()
-  @IsString()
-  image: string;
-
-  @IsOptional()
-  @IsInt()
-  ki: number;
-}
+export class UpdateTransformationDto extends PartialType(TransformationDTO) {}
