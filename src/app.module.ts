@@ -6,6 +6,7 @@ import { join } from 'path';
 import { CharactersModule } from './characters/characters.module';
 import { PlanetsModule } from './planets/planets.module';
 import { TransformationModule } from './transformation/transformation.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { TransformationModule } from './transformation/transformation.module';
     CharactersModule,
     PlanetsModule,
     TransformationModule,
+    CloudinaryModule,
   ],
   controllers: [],
   providers: [],

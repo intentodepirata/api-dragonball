@@ -13,7 +13,7 @@ import {
   UpdateTransformationDto,
 } from './dto/transformation.dto';
 
-@Controller('transformation')
+@Controller('transformations')
 export class TransformationController {
   constructor(private readonly transformationService: TransformationService) {}
 

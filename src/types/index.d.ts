@@ -6,6 +6,8 @@ declare namespace NodeJS {
     MYSQL_USER: string;
     MYSQL_PASSWORD: string;
     MYSQL_DATABASE: string;
-    API_URL: string;
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
   }
 }

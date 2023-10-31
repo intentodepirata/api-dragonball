@@ -3,13 +3,16 @@ import { CharactersService } from './characters.service';
 import { CharactersController } from './characters.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Character } from './entities/character.entity';
-import { TransformationService } from 'src/transformation/transformation.service';
-import { PlanetsService } from 'src/planets/planets.service';
 import { PlanetsModule } from 'src/planets/planets.module';
-import { TransformationModule } from 'src/transformation/transformation.module';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Character])],
+  imports: [
+    TypeOrmModule.forFeature([Character]),
+    PlanetsModule,
+    CloudinaryModule,
+  ],
   controllers: [CharactersController],
   providers: [CharactersService],
 })

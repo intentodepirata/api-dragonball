@@ -1,0 +1,13 @@
+{
+    "workbench.colorCustomizations": {
+    "[Flatland Monokai]": {
+        
+    "tab.activeBorder": "#015aff",
+    "tab.activeBackground": "#050505ec"
+    
+    }
+    },
+    "workbench.colorTheme": "Flatland Monokai"
+
+
+}

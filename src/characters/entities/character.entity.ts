@@ -22,8 +22,8 @@ export class Character implements ICharacter {
   @Column({ unique: true })
   name: string;
 
-  @Column({ type: 'bigint' })
-  maxKi: number;
+  @Column()
+  maxKi: string;
 
   @Column({ type: 'enum', enum: Race })
   race: Race;
@@ -40,7 +40,7 @@ export class Character implements ICharacter {
   @Column()
   image: string;
 
-  @ManyToOne(() => Planet, (planet) => planet.characters)
+  @ManyToOne(() => Planet, (planet) => planet.id)
   originPlanet: Planet;
 
   @OneToMany(() => Transformation, (transformation) => transformation.character)

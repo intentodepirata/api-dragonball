@@ -3,6 +3,7 @@ import { IsOptional, IsString, IsInt, IsEnum } from 'class-validator';
 import { Affiliation } from 'src/constants/affiliation';
 import { Gender } from 'src/constants/gender';
 import { Race } from 'src/constants/race';
+import { Planet } from 'src/planets/entities/planet.entity';
 
 export class CreateCharacterDTO {
   @IsString()
@@ -17,17 +18,17 @@ export class CreateCharacterDTO {
   @IsString()
   age: string;
 
-  @IsInt()
-  maxKi: number;
+  @IsString()
+  maxKi: string;
 
   @IsString()
   description: string;
 
-  @IsString()
-  image: string;
-
   @IsEnum(Affiliation)
   affiliation: Affiliation;
+
+  @IsString()
+  originPlanet: string;
 }
 
 //Agregar todos los campos opcionales

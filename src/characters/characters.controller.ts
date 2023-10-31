@@ -8,17 +8,24 @@ import {
   Param,
   Delete,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('characters')
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
   @Post()
-  create(@Body() createCharacterDto: CreateCharacterDTO) {
-    return this.charactersService.create(createCharacterDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() createCharacterDto: CreateCharacterDTO,
+    @UploadedFile() image,
+  ) {
+    return this.charactersService.create(createCharacterDto, image);
   }
 
   @Get()
@@ -37,11 +44,13 @@ export class CharactersController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: number,
     @Body() updateCharacterDto: UpdateCharacterDTO,
+    @UploadedFile() image,
   ) {
-    return this.charactersService.update(id, updateCharacterDto);
+    return this.charactersService.update(id, updateCharacterDto, image);
   }
 
   @Delete(':id')
