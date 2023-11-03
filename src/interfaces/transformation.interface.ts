@@ -4,7 +4,7 @@ export interface ITransformation {
   id: number;
   name: string;
   image: string;
-  ki: number;
+  ki: string;
   character: Character;
   deletedAt: Date;
 }

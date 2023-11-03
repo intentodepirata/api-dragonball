@@ -1,8 +1,9 @@
+import { Affiliation } from './../constants/affiliation';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
 import { Character } from './entities/character.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import {
   paginate,
   Pagination,
@@ -10,6 +11,8 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { Planet } from 'src/planets/entities/planet.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { Gender } from 'src/constants/gender';
+import { Race } from 'src/constants/race';
 
 @Injectable()
 export class CharactersService {
@@ -27,6 +30,16 @@ export class CharactersService {
     return paginate<Character>(this.characterRepository, options);
   }
 
+  async filter(name, gender, race, affiliation): Promise<Character[]> {
+    return this.characterRepository.find({
+      where: {
+        name: name && Like(`%${name}%`),
+        gender,
+        race,
+        affiliation,
+      },
+    });
+  }
   async create(
     createCharacterDto: CreateCharacterDTO,
     image: Express.Multer.File,

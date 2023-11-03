@@ -14,6 +14,9 @@ import {
 import { CharactersService } from './characters.service';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Gender } from 'src/constants/gender';
+import { Race } from 'src/constants/race';
+import { Affiliation } from 'src/constants/affiliation';
 
 @Controller('characters')
 export class CharactersController {
@@ -29,8 +32,19 @@ export class CharactersController {
   }
 
   @Get()
-  findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+  findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('name') name: string,
+    @Query('gender') gender: Gender,
+    @Query('race') race: Race,
+    @Query('affiliation') affiliation: Affiliation,
+  ) {
     limit = limit > 100 ? 100 : limit;
+
+    if (name || gender || race || affiliation) {
+      return this.charactersService.filter(name, gender, race, affiliation);
+    }
     return this.charactersService.paginate({
       limit: Number(limit),
       page: Number(page),
@@ -48,7 +62,7 @@ export class CharactersController {
   update(
     @Param('id') id: number,
     @Body() updateCharacterDto: UpdateCharacterDTO,
-    @UploadedFile() image,
+    @UploadedFile() image: Express.Multer.File,
   ) {
     return this.charactersService.update(id, updateCharacterDto, image);
   }

@@ -7,7 +7,10 @@ export class TransformationDTO {
   @IsString()
   image: string;
 
-  @IsInt()
-  ki: number;
+  @IsString()
+  ki: string;
+
+  @IsString()
+  character: string;
 }
 export class UpdateTransformationDto extends PartialType(TransformationDTO) {}

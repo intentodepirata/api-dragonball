@@ -19,8 +19,8 @@ export class Transformation implements ITransformation {
   @Column()
   image: string;
 
-  @Column({ type: 'bigint' })
-  ki: number;
+  @Column()
+  ki: string;
 
   @ManyToOne(() => Character, (character) => character.transformations)
   character: Character;

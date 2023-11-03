@@ -6,20 +6,27 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { TransformationService } from './transformation.service';
 import {
   TransformationDTO,
   UpdateTransformationDto,
 } from './dto/transformation.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('transformations')
 export class TransformationController {
   constructor(private readonly transformationService: TransformationService) {}
 
   @Post()
-  create(@Body() createTransformationDto: TransformationDTO) {
-    return this.transformationService.create(createTransformationDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() createTransformationDto: TransformationDTO,
+    image: Express.Multer.File,
+  ) {
+    return this.transformationService.create(createTransformationDto, image);
   }
 
   @Get()
@@ -33,11 +40,17 @@ export class TransformationController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: number,
     @Body() updateTransformationDto: UpdateTransformationDto,
+    @UploadedFile() image: Express.Multer.File,
   ) {
-    return this.transformationService.update(id, updateTransformationDto);
+    return this.transformationService.update(
+      id,
+      updateTransformationDto,
+      image,
+    );
   }
 
   @Delete(':id')
