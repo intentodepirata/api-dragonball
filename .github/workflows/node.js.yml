@@ -26,7 +26,7 @@ jobs:
         run: npm ci --omit=dev
 
       - name: Create Environment File
-        run: echo "${{ secrets.PROD_ENV_FILE_DRAGONBALL_API }}" > .env
+        run: echo "${{ secrets.PROD_ENV_FILE_DRAGONBALL_API }}"
 
       - name: Build App
         run: npm run build
