@@ -1,0 +1,30 @@
+name: Node.js CI/CD
+# hola
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Create Environment File
+        run: echo "${{ secrets.PROD_ENV_FILE_AGORA_EXPRESS }}" > .env
+
+      - name: Start Node.js Application
+        run: pm2 restart api-agora-express
