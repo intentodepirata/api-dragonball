@@ -5,9 +5,6 @@ export class CreatePlanetDTO {
   name: string;
 
   @IsString()
-  image: string;
-
-  @IsBoolean()
   isDestroyed: boolean;
 
   @IsString()

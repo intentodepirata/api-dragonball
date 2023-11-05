@@ -5,9 +5,6 @@ export class TransformationDTO {
   name: string;
 
   @IsString()
-  image: string;
-
-  @IsString()
   ki: string;
 
   @IsString()

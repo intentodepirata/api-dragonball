@@ -6,17 +6,21 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PlanetsService } from './planets.service';
 import { CreatePlanetDTO, UpdatePlanetDTO } from './dto/planet.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('planets')
 export class PlanetsController {
   constructor(private readonly planetsService: PlanetsService) {}
 
   @Post()
-  create(@Body() createPlanetDto: CreatePlanetDTO) {
-    return this.planetsService.create(createPlanetDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(@Body() createPlanetDto: CreatePlanetDTO, @UploadedFile() image) {
+    return this.planetsService.create(createPlanetDto, image);
   }
 
   @Get()
@@ -30,8 +34,13 @@ export class PlanetsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updatePlanetDto: UpdatePlanetDTO) {
-    return this.planetsService.update(id, updatePlanetDto);
+  @UseInterceptors(FileInterceptor('image'))
+  update(
+    @Param('id') id: number,
+    @Body() updatePlanetDto: UpdatePlanetDTO,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.planetsService.update(id, updatePlanetDto, image);
   }
 
   @Delete(':id')

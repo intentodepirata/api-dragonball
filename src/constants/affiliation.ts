@@ -8,4 +8,5 @@ export enum Affiliation {
   PRIDE_TROOPERS = 'Pride Troopers',
   ASSISTANT_VERMOUD = 'Assistant of Vermoud',
   ASSISTANT_BEERUS = 'Assistant of Beerus',
+  VILLAIN = 'Villain',
 }

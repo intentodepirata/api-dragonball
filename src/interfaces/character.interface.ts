@@ -8,11 +8,11 @@ export interface ICharacter {
   id: number;
   name: string;
   race: Race;
+  ki: string;
   maxKi: string;
   gender: Gender;
-  age: string;
-  description: string;
 
+  description: string;
   originPlanet: Planet;
   transformations: Transformation[];
   affiliation: Affiliation;

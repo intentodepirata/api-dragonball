@@ -24,7 +24,7 @@ export class TransformationController {
   @UseInterceptors(FileInterceptor('image'))
   create(
     @Body() createTransformationDto: TransformationDTO,
-    image: Express.Multer.File,
+    @UploadedFile() image: Express.Multer.File,
   ) {
     return this.transformationService.create(createTransformationDto, image);
   }

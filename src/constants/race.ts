@@ -8,5 +8,8 @@ export enum Race {
   ANDROID = 'Android',
   GOD = 'God',
   ANGEL = 'Angel',
+  EVIL = 'Evil',
   UNKNOWN = 'Unknown',
+  NUCLEICO_BENIGNO = 'Nucleico benigno',
+  NUCLEICO = 'Nucleico',
 }

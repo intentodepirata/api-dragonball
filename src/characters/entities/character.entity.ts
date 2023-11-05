@@ -23,6 +23,9 @@ export class Character implements ICharacter {
   name: string;
 
   @Column()
+  ki: string;
+
+  @Column()
   maxKi: string;
 
   @Column({ type: 'enum', enum: Race })
@@ -30,9 +33,6 @@ export class Character implements ICharacter {
 
   @Column({ type: 'enum', enum: Gender })
   gender: Gender;
-
-  @Column()
-  age: string;
 
   @Column('text')
   description: string;

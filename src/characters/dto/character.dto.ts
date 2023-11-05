@@ -16,7 +16,7 @@ export class CreateCharacterDTO {
   gender: Gender;
 
   @IsString()
-  age: string;
+  ki: string;
 
   @IsString()
   maxKi: string;
