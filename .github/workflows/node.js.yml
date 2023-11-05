@@ -19,14 +19,14 @@ jobs:
           node-version: 18.17.1 # Ajusta la versión de Node.js a tu configuración
           cache: 'npm'
 
+      - name: Create Environment File
+        run: echo "${{ secrets.PROD_ENV_FILE_DRAGONBALL_API }}"  > .env
+
       - name: Install NestJS CLI
         run: npm install -g @nestjs/cli
 
       - name: Install Dependencies (Production)
         run: npm ci --omit=dev
-
-      - name: Create Environment File
-        run: echo "${{ secrets.PROD_ENV_FILE_DRAGONBALL_API }}"  > .env
 
       - name: Build App
         run: npm run build
