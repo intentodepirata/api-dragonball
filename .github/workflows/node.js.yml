@@ -19,8 +19,11 @@ jobs:
           node-version: 18.17.1 # Ajusta la versión de Node.js a tu configuración
           cache: 'npm'
 
+      - name: Install NestJS CLI
+        run: npm install -g @nestjs/cli
+
       - name: Install Dependencies (Production)
-        run: npm ci --only=production
+        run: npm ci --omit=dev
 
       - name: Build App
         run: npm run build
