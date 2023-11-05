@@ -2,8 +2,13 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePlanetDTO, UpdatePlanetDTO } from './dto/planet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Planet } from './entities/planet.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import {
+  IPaginationOptions,
+  Pagination,
+  paginate,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class PlanetsService {
@@ -13,6 +18,18 @@ export class PlanetsService {
 
     private cloudinary: CloudinaryService,
   ) {}
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Planet>> {
+    return paginate<Planet>(this.planetRepository, options);
+  }
+  async filter(name, isDestroyed): Promise<Planet[]> {
+    return this.planetRepository.find({
+      where: {
+        name: name && Like(`%${name}%`),
+        isDestroyed,
+      },
+    });
+  }
 
   async create(createPlanetDto: CreatePlanetDTO, image: Express.Multer.File) {
     const result = await this.cloudinary.uploadImage(image);

@@ -8,6 +8,7 @@ import {
   Delete,
   UploadedFile,
   UseInterceptors,
+  Query,
 } from '@nestjs/common';
 import { PlanetsService } from './planets.service';
 import { CreatePlanetDTO, UpdatePlanetDTO } from './dto/planet.dto';
@@ -24,8 +25,22 @@ export class PlanetsController {
   }
 
   @Get()
-  findAll() {
-    return this.planetsService.findAll();
+  findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('name') name: string,
+    @Query('isDestroyed') isDestroyed: boolean,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    if (name || isDestroyed !== undefined) {
+      return this.planetsService.filter(name, isDestroyed);
+    }
+    return this.planetsService.paginate({
+      limit: Number(limit),
+      page: Number(page),
+      route: `${process.env.API_URL}/planets`,
+    });
   }
 
   @Get(':id')
