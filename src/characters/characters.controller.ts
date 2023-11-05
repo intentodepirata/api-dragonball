@@ -10,6 +10,7 @@ import {
   Query,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
@@ -17,11 +18,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Gender } from 'src/constants/gender';
 import { Race } from 'src/constants/race';
 import { Affiliation } from 'src/constants/affiliation';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('characters')
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   create(
@@ -57,6 +60,7 @@ export class CharactersController {
     return this.charactersService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
   update(
@@ -67,6 +71,7 @@ export class CharactersController {
     return this.charactersService.update(id, updateCharacterDto, image);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.charactersService.remove(id);

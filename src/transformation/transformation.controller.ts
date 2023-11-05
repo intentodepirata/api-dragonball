@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  UseGuards,
 } from '@nestjs/common';
 import { TransformationService } from './transformation.service';
 import {
@@ -15,11 +16,14 @@ import {
   UpdateTransformationDto,
 } from './dto/transformation.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('transformations')
 export class TransformationController {
   constructor(private readonly transformationService: TransformationService) {}
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   create(
@@ -39,6 +43,8 @@ export class TransformationController {
     return this.transformationService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
   update(
@@ -53,6 +59,8 @@ export class TransformationController {
     );
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.transformationService.remove(id);

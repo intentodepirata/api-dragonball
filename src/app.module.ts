@@ -1,3 +1,5 @@
+import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -7,9 +9,11 @@ import { CharactersModule } from './characters/characters.module';
 import { PlanetsModule } from './planets/planets.module';
 import { TransformationModule } from './transformation/transformation.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -28,6 +32,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     PlanetsModule,
     TransformationModule,
     CloudinaryModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

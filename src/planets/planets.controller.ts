@@ -9,15 +9,19 @@ import {
   UploadedFile,
   UseInterceptors,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { PlanetsService } from './planets.service';
 import { CreatePlanetDTO, UpdatePlanetDTO } from './dto/planet.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('planets')
 export class PlanetsController {
   constructor(private readonly planetsService: PlanetsService) {}
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   create(@Body() createPlanetDto: CreatePlanetDTO, @UploadedFile() image) {
@@ -48,6 +52,8 @@ export class PlanetsController {
     return this.planetsService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
   update(
@@ -58,6 +64,8 @@ export class PlanetsController {
     return this.planetsService.update(id, updatePlanetDto, image);
   }
 
+  @UseGuards(AuthGuard)
+  @Post()
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.planetsService.remove(id);
