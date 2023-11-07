@@ -33,3 +33,7 @@ jobs:
 
       - name: Start App
         run: npm run start:prod # Utiliza el comando de inicio de producciónas
+
+      - name: Start pm2
+        run: pm2 restart api-dragonball
+        # Utiliza el comando de inicio de producciónas
