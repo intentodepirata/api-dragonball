@@ -106,12 +106,12 @@ export class CharactersController {
     required: false,
   })
   findAll(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
-    @Query('name') name?: string | undefined,
-    @Query('gender') gender?: Gender,
-    @Query('race') race?: Race,
-    @Query('affiliation') affiliation?: Affiliation,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('name') name: string,
+    @Query('gender') gender: Gender,
+    @Query('race') race: Race,
+    @Query('affiliation') affiliation: Affiliation,
   ) {
     limit = limit > 100 ? 100 : limit;
 
