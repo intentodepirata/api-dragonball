@@ -13,6 +13,7 @@ import { ICharacter } from 'src/interfaces/character.interface';
 import { Race } from 'src/constants/race';
 import { Gender } from 'src/constants/gender';
 import { Affiliation } from 'src/constants/affiliation';
+import { Exclude } from 'class-transformer';
 
 @Entity('characters')
 export class Character implements ICharacter {
@@ -49,6 +50,7 @@ export class Character implements ICharacter {
   @Column({ type: 'enum', enum: Affiliation })
   affiliation: Affiliation;
 
+  @Exclude()
   @DeleteDateColumn()
   deletedAt: Date;
 }

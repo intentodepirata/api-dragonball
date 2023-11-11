@@ -1,4 +1,3 @@
-import { Affiliation } from './../constants/affiliation';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCharacterDTO, UpdateCharacterDTO } from './dto/character.dto';
@@ -11,8 +10,6 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { Planet } from 'src/planets/entities/planet.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { Gender } from 'src/constants/gender';
-import { Race } from 'src/constants/race';
 
 @Injectable()
 export class CharactersService {

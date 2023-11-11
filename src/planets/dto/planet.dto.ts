@@ -1,12 +1,14 @@
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 export class CreatePlanetDTO {
+  @ApiProperty()
   @IsString()
   name: string;
-
+  @ApiProperty()
   @IsString()
   isDestroyed: boolean;
-
+  @ApiProperty()
   @IsString()
   description: string;
 }
