@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1 # Ajusta la versión de Node.js a tu configuración
+          node-version: 18.17.1
           cache: 'npm'
 
       - name: Create Environment File
@@ -32,8 +32,7 @@ jobs:
         run: npm run build
 
       - name: Start App
-        run: npm run start:prod # Utiliza el comando de inicio de producciónas
+        run: npm run start:prod
 
       - name: Start pm2
         run: pm2 restart api-dragonball
-        # Utiliza el comando de inicio de produccióna s
