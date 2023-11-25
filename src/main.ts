@@ -24,7 +24,13 @@ async function bootstrap() {
       transform: true,
     }),
   ),
-    await app.listen(process.env.PORT || 3000);
+    // Middleware personalizado para establecer Cache-Control
+    app.use((req, res, next) => {
+      res.setHeader('Cache-Control', 'max-age=31536000');
+      next();
+    });
+
+  await app.listen(process.env.PORT || 3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
