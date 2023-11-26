@@ -24,9 +24,9 @@ async function bootstrap() {
       transform: true,
     }),
   ),
-    // Middleware personalizado para establecer Cache-Control
+    // Middleware personalizado para establecer Cache-Control 10 dias
     app.use((req, res, next) => {
-      res.setHeader('Cache-Control', 'max-age=31536000');
+      res.setHeader('Cache-Control', 'max-age=864000');
       next();
     });
 
