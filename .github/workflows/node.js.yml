@@ -31,8 +31,5 @@ jobs:
       - name: Build App
         run: npm run build
 
-      - name: Start App
-        run: npm run start:prod
-
       - name: Start pm2
         run: pm2 restart api-dragonball
