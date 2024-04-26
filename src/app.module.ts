@@ -26,7 +26,11 @@ import { UsersModule } from './users/users.module';
       synchronize: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '..', 'images'),
+      serveStaticOptions: {
+        maxAge: 30 * 24 * 60 * 60,
+        index: false,
+      },
     }),
     CharactersModule,
     PlanetsModule,
