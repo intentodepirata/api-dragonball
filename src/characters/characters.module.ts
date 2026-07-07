@@ -4,7 +4,6 @@ import { CharactersController } from './characters.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Character } from './entities/character.entity';
 import { PlanetsModule } from 'src/planets/planets.module';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({

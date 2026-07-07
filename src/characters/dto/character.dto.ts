@@ -1,9 +1,9 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsOptional, IsString, IsInt, IsEnum } from 'class-validator';
+import { IsString, IsEnum } from 'class-validator';
 import { Affiliation } from 'src/constants/affiliation';
 import { Gender } from 'src/constants/gender';
 import { Race } from 'src/constants/race';
-import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCharacterDTO {
   @ApiProperty()

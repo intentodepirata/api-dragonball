@@ -44,10 +44,6 @@ export class PlanetsService {
     return await this.planetRepository.save(planet);
   }
 
-  async findAll() {
-    return await this.planetRepository.find();
-  }
-
   async findOne(id: number) {
     const planet = await this.planetRepository.findOne({
       where: { id },

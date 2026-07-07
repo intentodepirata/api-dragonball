@@ -23,11 +23,14 @@ export class AuthService {
     if (user) {
       throw new BadRequestException('Email already in use');
     }
-    return this.userRepository.create({
+    const newUser = await this.userRepository.create({
       name,
       email,
       password: bcrypt.hashSync(password, 10),
     });
+    return Object.fromEntries(
+      Object.entries(newUser).filter(([key]) => key !== 'password'),
+    );
   }
 
   async login({ email, password }: LoginDto) {
@@ -44,6 +47,6 @@ export class AuthService {
       sub: user.id,
       name: user.name,
     };
-    return { acces_token: await this.jwt.signAsync(payload), user: user.name };
+    return { access_token: await this.jwt.signAsync(payload), user: user.name };
   }
 }

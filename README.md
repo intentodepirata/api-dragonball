@@ -1,73 +1,73 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Dragon Ball API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+REST API for Dragon Ball characters, planets, and transformations built with NestJS.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+- **Runtime:** Node.js 20
+- **Framework:** NestJS 10 + Express
+- **Database:** MySQL 8.0 via TypeORM
+- **Auth:** JWT (bcryptjs)
+- **Image Upload:** Cloudinary
+- **Docs:** Swagger (`/api-docs`)
+- **Testing:** Jest (28 unit tests, 4 e2e)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Setup
 
 ```bash
-$ npm install
+# 1. Copy env vars and fill them in
+cp .env.example .env
+
+# 2. Install
+npm install
+
+# 3. Start MySQL and create the database
+mysql -u root -e "CREATE DATABASE dragonball_api;"
+
+# 4. (optional) Import seed data
+mysql -u root dragonball_api < "Dump 04112023last.sql"
+
+# 5. Run
+npm run start:dev
 ```
 
-## Running the app
+## API
+
+Global prefix: `/api` — Docs at `/api-docs`
+
+### Public Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/characters` | List characters (paginated, filterable) |
+| GET | `/api/characters/:id` | Get character with planet + transformations |
+| GET | `/api/planets` | List planets (paginated, filterable) |
+| GET | `/api/planets/:id` | Get planet with characters |
+| GET | `/api/transformations` | List transformations |
+| GET | `/api/transformations/:id` | Get transformation with character |
+
+### Auth Endpoints
+
+| Method | Path | Body | Returns |
+|--------|------|------|---------|
+| POST | `/api/auth/register` | `{name, email, password}` | User (no password hash) |
+| POST | `/api/auth/login` | `{email, password}` | `{access_token, user}` |
+
+### Protected Endpoints (require `Authorization: Bearer <token>`)
+
+POST/PATCH/DELETE on all `/api/characters`, `/api/planets`, `/api/transformations`
+
+## Scripts
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev    # watch mode
+npm run test         # 28 unit tests
+npm run test:e2e     # 4 e2e tests (requires MySQL)
+npm run lint         # eslint
+npm run format       # prettier
+npm run build        # compile
 ```
 
-## Test
+## Node.js Compatibility
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Node.js 20 is recommended. Node 26+ requires a patch to `buffer-equal-constant-time` (see `node_modules/`).

@@ -63,12 +63,6 @@ export class CharactersService {
     return await this.characterRepository.save(character);
   }
 
-  findAll() {
-    return this.characterRepository.find({
-      relations: ['originPlanet', 'transformations'],
-    });
-  }
-
   async findOne(id: number) {
     const character = await this.characterRepository.findOne({
       where: { id },
@@ -101,17 +95,21 @@ export class CharactersService {
       }
     }
 
-    const planet = await this.planetRepository.findOneBy({
-      name: updateCharacterDto.originPlanet,
-    });
-    if (!planet) {
-      throw new BadRequestException('OriginPlanet not found');
-    }
-    const updatedCharacter = {
-      ...updateCharacterDto,
+    const { originPlanet: planetName, ...rest } = updateCharacterDto;
+    const updatedCharacter: any = {
+      ...rest,
       image: image ? result.secure_url : character.image,
-      originPlanet: planet,
     };
+
+    if (planetName) {
+      const planet = await this.planetRepository.findOneBy({
+        name: planetName,
+      });
+      if (!planet) {
+        throw new BadRequestException('OriginPlanet not found');
+      }
+      updatedCharacter.originPlanet = planet;
+    }
 
     return await this.characterRepository.update(id, updatedCharacter);
   }
@@ -121,6 +119,6 @@ export class CharactersService {
     if (!character) {
       throw new BadRequestException('Character ID not found');
     }
-    return character;
+    return await this.characterRepository.softDelete(id);
   }
 }

@@ -1,4 +1,3 @@
-import { IsBoolean } from 'class-validator';
 import {
   Controller,
   Get,

@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
@@ -13,6 +13,7 @@ async function bootstrap() {
   app.enableCors(CORS);
 
   app.use(morgan('dev'));
+  app.disable('x-powered-by');
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
@@ -23,12 +24,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
       transform: true,
     }),
-  ),
-    // Middleware personalizado para establecer Cache-Control 10 dias
-    app.use((req, res, next) => {
-      res.setHeader('Cache-Control', 'max-age=864000');
-      next();
-    });
+  );
 
   await app.listen(process.env.PORT || 3000);
   console.log(`Application is running on: ${await app.getUrl()}`);

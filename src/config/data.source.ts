@@ -16,6 +16,8 @@ export const DataSourceConfig: DataSourceOptions = {
   password: configService.get('MYSQL_PASSWORD'),
   database: configService.get('MYSQL_DATABASE'),
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  // TODO: synchronize drops and recreates tables on every restart.
+  // Replace with TypeORM migrations before deploying to production.
   synchronize: true,
 };
 

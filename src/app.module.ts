@@ -1,5 +1,4 @@
 import { AuthModule } from './auth/auth.module';
-import { AuthController } from './auth/auth.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -23,6 +22,8 @@ import { UsersModule } from './users/users.module';
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      // TODO: synchronize drops and recreates tables on every restart.
+      // Replace with TypeORM migrations before deploying to production.
       synchronize: true,
     }),
     ServeStaticModule.forRoot({

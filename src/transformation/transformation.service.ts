@@ -77,18 +77,22 @@ export class TransformationService {
         throw new BadRequestException('Image not uploaded');
       }
     }
-    const character = await this.characterRepository.findOneBy({
-      name: updateTransformationDto.character,
-    });
-    if (!character) {
-      throw new BadRequestException('Character not found');
-    }
 
+    const { character: characterName, ...rest } = updateTransformationDto;
     const updatedTransformation = this.transformationRepository.create({
-      ...updateTransformationDto,
+      ...rest,
       image: result ? result.secure_url : transformation.image,
-      character,
     });
+
+    if (characterName) {
+      const character = await this.characterRepository.findOneBy({
+        name: characterName,
+      });
+      if (!character) {
+        throw new BadRequestException('Character not found');
+      }
+      updatedTransformation.character = character;
+    }
 
     return await this.transformationRepository.update(
       id,
